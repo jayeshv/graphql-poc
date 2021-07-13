@@ -9,6 +9,8 @@ type_defs = gql("""
     type Origin {
         url: String!
         visits: [OriginVisit]!
+        snapshots: [Snapshot]!
+        revisions: [Revision]!
     }
 
     type OriginVisit {
