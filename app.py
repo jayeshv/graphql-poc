@@ -2,6 +2,7 @@ from ariadne import QueryType, ObjectType, gql, make_executable_schema
 from ariadne.asgi import GraphQL
 
 from data import origins as DATA
+import asyncio
 
 
 # SDL
@@ -43,9 +44,17 @@ query = QueryType()
 origin = ObjectType('Origin')
 visit = ObjectType('OriginVisit')
 
+
+async def mysleep():
+    await asyncio.sleep(1)
+    return True
+
 @query.field('origins')
-def resolve_origins(_, info, **args):
+async def resolve_origins(_, info, **args):
     limit = args.get('first', 10)
+    r = await asyncio.gather(mysleep(), mysleep(), mysleep(),
+                             mysleep(), mysleep(), mysleep())
+    print(r)
     # query origin obj
     return DATA
 
